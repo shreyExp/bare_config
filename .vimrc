@@ -23,9 +23,9 @@ inoremap df <C-n>
 "Auto complete omni
 inoremap DF <C-x><C-o>
 "----------------------------Normal mode map keys
-nnoremap <C-F> :Texplore<Enter>
-nnoremap <C-E>v :tabe ~/.vimrc<return>
-nnoremap <C-E>b :tabe ~/.bashrc<return>
+nnoremap <C-F> :Explore<Enter>
+nnoremap <C-E>v :args ~/.vimrc<return>
+nnoremap <C-E>b :args ~/.bashrc<return>
 "remaping zero 
 nnoremap 0 ^
 "----------------------------buffer navigation
