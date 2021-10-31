@@ -119,3 +119,4 @@ alias sshpi='ssh pi@raspberrypi.local'
 alias doc='cd ~/Documents'
 set -o vi
 alias config='/usr/bin/git --git-dir=/home/shreyansh/.cfg/ --work-tree=/home/shreyansh'
+/usr/bin/setxkbmap -option "caps: swapescape"
