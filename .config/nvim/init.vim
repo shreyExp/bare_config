@@ -3,6 +3,7 @@ filetype on                  " required
 
 set number
 set smartindent
+set laststatus=0
 
 packloadall
 
@@ -18,7 +19,7 @@ call plug#end()
 autocmd FileType python call PythonDo()
 autocmd FileType c,cpp call CfileDo()
 autocmd FileType plaintex,tex call TexDo()
-autocmd BufWinEnter,WinEnter plaintex,tex colorscheme darkblue
+"autocmd BufWinEnter plaintex,tex colorscheme darkblue
 
 au VimEnter *.tex Goyo
 
@@ -34,10 +35,11 @@ inoremap df <C-n>
 inoremap DF <C-x><C-o>
 "----------------------------Normal mode map keys
 nnoremap <C-F> :Explore<Enter>
-nnoremap <C-E>v :args ~/.vimrc<return>
+nnoremap <C-E>v :args ~/.config/nvim/init.vim<return>
 nnoremap <C-E>b :args ~/.bashrc<return>
 "remaping zero 
 nnoremap 0 ^
+nnoremap <leader>a :noh<CR>
 
 "----------------------------buffer navigation
 nnoremap <leader>j :bn<CR><C-G>
@@ -50,13 +52,15 @@ nnoremap <leader>o <C-^><C-G>
 
 "---------------------------saving and quiting
 nnoremap <leader>s :w<CR>
-nnoremap <leader>a :wqa<CR>
+nnoremap <leader>ww :wqa<CR>
 nnoremap <leader>cc :qa!<CR>
 
 "---------------------------for navigation
 nnoremap <leader>f *
 "nnoremap { {j^
 nnoremap } }j^
+nnoremap J }j^
+nnoremap K {
 nnoremap <C-w> <C-y>
 
 "--------------------------for folds
@@ -74,11 +78,12 @@ augroup END
 filetype plugin indent on
 syntax on
 set spelllang=en
-"set laststatus=2
+set laststatus=0
 set path+=**
 set noerrorbells
 "----------------------------Looks and Feels
 hi Folded ctermbg=234
+hi StatusLine ctermbg=gray ctermfg=darkgray
 
 "----------------------------Function to activate c, c++ config
 function CfileDo()
@@ -97,6 +102,7 @@ endfunction
 function PythonDo()
 	ab mainer if __name__ == "__main__":
 	nnoremap <C-y> :!python3 %<CR>
+	nnoremap <leader>z /def\\|class<CR>
 endfunction
 
 function TexDo()
