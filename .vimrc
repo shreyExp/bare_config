@@ -17,10 +17,10 @@ call plug#end()
 
 autocmd FileType python call PythonDo()
 autocmd FileType c,cpp call CfileDo()
-autocmd FileType plaintex,tex call TexDo()
-autocmd BufWinEnter,WinEnter plaintex,tex colorscheme darkblue
+"autocmd FileType plaintex,tex call TexDo()
+"autocmd BufWinEnter,WinEnter plaintex,tex colorscheme darkblue
 
-au VimEnter *.tex Goyo
+"au VimEnter *.tex Goyo
 
 
 "----------------------------Insert mode map keys

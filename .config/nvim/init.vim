@@ -1,9 +1,10 @@
-set nocompatible              " be iMproved, required
-filetype on                  " required
+set nocompatible " be iMproved, required
+filetype on " required
 
 set number
 set smartindent
 set laststatus=0
+set hidden
 
 packloadall
 
@@ -14,14 +15,30 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'mhinz/vim-startify'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'preservim/nerdtree'
 call plug#end()
+
+let g:airline_theme='luna'
+"let g:airline#extensions#capslock#enabled = 1
+"let g:airline_solarized_bg='dark'
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 autocmd FileType python call PythonDo()
 autocmd FileType c,cpp call CfileDo()
 autocmd FileType plaintex,tex call TexDo()
+autocmd FileType lua call LuaDo()
 "autocmd BufWinEnter plaintex,tex colorscheme darkblue
 
-au VimEnter *.tex Goyo
+"au VimEnter *.tex Goyo
+
+"----------------------------NerdTree
 
 
 "----------------------------Insert mode map keys
@@ -37,17 +54,17 @@ inoremap DF <C-x><C-o>
 nnoremap <C-F> :Explore<Enter>
 nnoremap <C-E>v :args ~/.config/nvim/init.vim<return>
 nnoremap <C-E>b :args ~/.bashrc<return>
-"remaping zero 
+"remaping zero
 nnoremap 0 ^
 nnoremap <leader>a :noh<CR>
 
 "----------------------------buffer navigation
-nnoremap <leader>j :bn<CR><C-G>
-nnoremap <leader>k :bN<CR><C-G>
+nnoremap <leader>j :bn!<CR><C-G>
+nnoremap <leader>k :bN!<CR><C-G>
 nnoremap <leader>l :ls<CR>
 nnoremap <leader>l :ls<CR>
 nnoremap <leader>g <C-G>
-nnoremap <leader>; :ls<CR>:b<space>
+nnoremap <leader>; :ls<CR>:b!<space>
 nnoremap <leader>o <C-^><C-G>
 
 "---------------------------saving and quiting
@@ -61,16 +78,16 @@ nnoremap <leader>f *
 nnoremap } }j^
 nnoremap J }j^
 nnoremap K {
-nnoremap <C-w> <C-y>
+"nnoremap <C-w> <C-y>
 
-"--------------------------for folds
+"--------------------------------for folds
 set foldmethod=indent
 set foldlevel=99
 
 augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
+	autocmd!
+	autocmd BufWinLeave *.py mkview
+	autocmd BufWinEnter *.py silent! loadview
 augroup END
 
 "nnoremap <leader>v :Goyo<CR>
@@ -84,6 +101,16 @@ set noerrorbells
 "----------------------------Looks and Feels
 hi Folded ctermbg=234
 hi StatusLine ctermbg=gray ctermfg=darkgray
+
+
+function LuaDo()
+	nnoremap ,x :call LuaReallyDo()<CR>
+endfunction
+
+function LuaReallyDo()
+	set rtp+=.
+	luafile /home/shreyansh/Documents/NeoVim/dev/init.lua
+endfunction
 
 "----------------------------Function to activate c, c++ config
 function CfileDo()
@@ -101,12 +128,13 @@ endfunction
 "-----------------------------Function to activate python config
 function PythonDo()
 	ab mainer if __name__ == "__main__":
-	nnoremap <C-y> :!python3 %<CR>
+	nnoremap \r :!python3 %<CR>
 	nnoremap <leader>z /def\\|class<CR>
 endfunction
 
 function TexDo()
 	setlocal spell spelllang=en_us
+	setlocal filetype=tex
 	colorscheme darkblue
 	setlocal thesaurus+=$HOME/.vim/thesaur/mthesaur.txt
 	ab secn \section{}<esc>
